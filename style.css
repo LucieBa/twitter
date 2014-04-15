@@ -1,0 +1,16 @@
+body{
+
+}
+
+
+.perso{
+	border:1px solid green;
+	float:left;
+	width:20%;
+}
+
+.tweets{
+	border:1px solid green;
+	float:left;
+	width:75%;
+}
