@@ -35,4 +35,6 @@ h2{
 .tweet{
 	border:1px solid green;
 	width:50%;
+	margin: 5px;
+	padding:10px;
 }
