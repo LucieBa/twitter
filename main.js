@@ -13,10 +13,15 @@ var client = redis.createClient({
 
 var id = 1; // Connecté en tant que Marie Noiret
 
+var tweet = new Array();
+	tweet["pseudo"] = "Lucie";
+	tweet["timestamp"] = 8;
+	tweet["message"] = "Coucou bande de nouilles";
+
 app.use(express.static(__dirname));
 
 app.get('/', function(request, result){
-	result.render('index.html.twig');
+	result.render('index.html.twig', tweet);
 	/*var name;
 	client.hgetall(id+':user',function(err,val)
 		{	
