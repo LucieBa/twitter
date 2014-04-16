@@ -3,10 +3,6 @@ body{
 }
 
 
-.contenu{
-	margin: 10%;
-}
-
 .bloc-perso{
 	width:30%;
 }
@@ -26,17 +22,17 @@ body{
 	background-color: #e6b2b7;
 }
 
+h2{
+	margin-top: 0px;
+	background-color: #ca6870;
+}
+
+#bloc-tweet{
+	background-color: #e6b2b7;
+}
 
 
-
-
-
-
-
-
-
-
-.tweets{
+.tweet{
 	border:1px solid green;
 	width:50%;
 }
