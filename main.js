@@ -16,21 +16,22 @@ var id = 1; // Connecté en tant que Marie Noiret
 app.use(express.static(__dirname));
 
 app.get('/', function(request, result){
-	result.render('index.html.twig');
-	/*var name;
+	//result.render('index.html.twig');
+	var name;
 	client.hgetall(id+':user',function(err,val)
 		{	
 			result.render('index.html.twig', {
 				nom:val.nom,
 				prenom:val.prenom
 			});
-		});*/
+		});
 
 });
 
-/*app.post('/publishtweet', function(request, result){
-	client.zadd(id+':tweets',new Date().getTime(),request.query.champTweet);
-});*/
+app.post('/publishtweet', function(request, result){
+	console.log(request.query.champTweet);
+	//client.zadd(id+':tweets',new Date().getTime(),request.query.champTweet);
+});
 
 app.listen(8080);
 
