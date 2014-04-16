@@ -1,4 +1,15 @@
 
+function say(word) {
+  console.log(word);
+}
+
+function execute(someFunction, value) {
+  someFunction(value);
+}
+
+
+
+// Variables
 var http = require('http');
 var express = require('express');
 
@@ -16,24 +27,40 @@ var id = 1; // Connecté en tant que Marie Noiret
 app.use(express.static(__dirname));
 
 app.get('/', function(request, result){
-	//result.render('index.html.twig');
-	var name;
+	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
+	{	
+		var time = 1;
+		var tweet = 0;
+		var taille = val.length/2;
+
+		for (var i = 0; i < taille; i++) {
+			var tweet = new Array();
+				tweet[i]["timestamp"] = val[time];
+				tweet[i]["message"] = val [tweet];
+			time = time + 2 ;
+			tweet = tweet + 2;
+		};
+		result.render('index.html.twig', tweet);
+	});
 	client.hgetall(id+':user',function(err,val)
 		{	
 			result.render('index.html.twig', {
 				nom:val.nom,
-				prenom:val.prenom
+				prenom:val.prenom,
+				pseudo:val.login
 			});
 		});
 
 });
 
 app.post('/publishtweet', function(request, result){
-	console.log(request.query.champTweet);
-	//client.zadd(id+':tweets',new Date().getTime(),request.query.champTweet);
+	client.zadd(id+':tweets',new Date().getTime(),"Test");
 });
 
 app.listen(8080);
+
+
+
 
 
 
