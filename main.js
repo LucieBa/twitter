@@ -16,17 +16,17 @@ var id = 1; // Connecté en tant que Marie Noiret
 
 app.use(express.static(__dirname));
 
-/*app.get('/', function(request, result){
+app.get('/', function(request, result){
 
 	//On récupère nos Infos
-	client.hgetall(id+':user',function(err,val)
+	/*client.hgetall(id+':user',function(err,val)
 		{	
 			result.render('index.html.twig', {
 				nom:val.nom,
 				prenom:val.prenom,
 				pseudo:val.login
 			});
-		});
+		});*/
 
 	//Je récupère mes tweets
 	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
@@ -79,7 +79,7 @@ app.use(express.static(__dirname));
 
 
 
-});*/
+});
 
 app.post('/publishtweet', function(request, result){
 	client.zadd(id+':tweets',new Date().getTime(),"Test");
