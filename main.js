@@ -23,6 +23,7 @@ app.get('/', function(request, result){
 	client.hgetall(id+':user',function(err,val)
 	{	
 		var info = val;
+		var tweets = Array();
 		// Je récupère les infos
 		//Nombre de tweets
 		client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
@@ -36,13 +37,36 @@ app.get('/', function(request, result){
 				client.llen(id+':followers',function(err,val)
 				{	
 					var nombreFollowers = val;
-					result.render('index.html.twig', {
-						nom:info.nom,
-						prenom:info.prenom,
-						login:info.login,
-						nombreTweet:nombreTweet,
-						nombreFollowing:nombreFollowing,
-						nombreFollowers:nombreFollowers
+
+					// Affichage des tweets
+					client.lrange(id+':following',-100,100,function(err,val)
+					{
+						var listeFollowers = val;
+						listeFollowers.push(id);
+						async.each(listeFollowers, function(followers, callback){
+							client.hget(followers+':user','login',function(err,val){
+								var login = val;
+								client.ZREVRANGE(followers+':tweets',0,-1,'withscores',function(err,val){
+									var listeTweetByUser = val;
+									var j = 0;
+									async.each(listeTweetByUser, function(tweet, callback){
+										if(tweet.length>2){
+											for (var i = 0; i < tweet.length/2; i+2) {
+												tweets[j]=tweet;
+											};
+										}
+												tweets[j]=login;
+												tweets[j]=tweet;
+												j++;
+									});
+
+									console.log(tweets);
+								});
+							});
+							callback();
+						}, function(){
+							
+						});
 					});
 				});
 			});
