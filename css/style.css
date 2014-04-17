@@ -1,15 +1,21 @@
 body{
-
+	background-image:url(../kindajean_@2X.png);  
 }
 
 
-.bloc-perso{
+#bloc-perso{
 	width:30%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	background-color: #e6b2b7;
+	border-radius: 15px;
+	margin-right:50px;
 }
 
 .bloc-perso-pseudo{
 	background-color: #ca6870;
 	text-align: center;
+	border-radius: 15px;
 }
 
 .col-md-4{
@@ -19,7 +25,7 @@ body{
 .bloc-perso-tweeter{ 
 	padding-top:50px;
 	padding:10px;
-	background-color: #e6b2b7;
+
 }
 
 h2{
@@ -29,6 +35,9 @@ h2{
 
 #bloc-tweet{
 	background-color: #e6b2b7;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 
@@ -37,4 +46,5 @@ h2{
 	width:50%;
 	margin: 5px;
 	padding:10px;
+	border-radius: 15px;
 }

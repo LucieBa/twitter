@@ -19,8 +19,6 @@ app.use(express.static(__dirname));
 
 app.get('/', function(request, result){
 
-
-
 	//On récupère nos Infos
 	client.hgetall(id+':user',function(err,val)
 	{	
@@ -52,6 +50,7 @@ app.get('/', function(request, result){
 	});
 });
 
+
 app.post('/publishtweet', function(request, result){
 	client.zadd(id+':tweets',new Date().getTime(),"Test");
 });
@@ -65,12 +64,3 @@ app.get('/followers', function(request, result){
 });
 
 app.listen(8080);
-
-
-
-
-
-
-
-
-
