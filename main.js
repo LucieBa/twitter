@@ -58,6 +58,14 @@ app.get('/', function(request, result){
 							});
 							callback();
 						}, function(){
+							result.render('index.html.twig',{
+								nom : info.nom,
+								prenom: info.prenom,
+								login: info.login,
+								nombreTweet: nombreTweet,
+								nombreFollowers : nombreFollowers,
+								nombreFollowing : nombreFollowing
+							});
 							
 						});
 					});
