@@ -49,18 +49,31 @@ app.get('/', function(request, result){
 	});
 
 	//Je récupère les tweets des gens que je suis
-	client.lrange(id+':following',-1000,+1000,function(err,val)
+	/*client.lrange(id+':following',-1000,+1000,function(err,val)
 	{	
-		console.log(val);
-		var id;
-		for (var i = 0; i < val.length; i++) {
-			var id = val[i];
-			client.zrange(id+':tweets',-2,-1,'withscores',function(err,val)
-			{	
-				console.log("test"+id);
-			});
-		}
+
+	});*/
+
+	// Je récupère les infos
+	//Nombre de tweets
+	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
+	{	
+		var nombreTweet = val.length;
+		result.render('index.html.twig', nombreTweet);
 	});
+	//Nombre de following
+	client.llen(id+':following',function(err,val)
+	{	
+		var nombreFollowing = val;
+		result.render('index.html.twig', nombreFollowing);
+	});
+	//Nombre de followers
+	client.llen(id+':following',function(err,val)
+	{	
+		var nombreFollowers = val;
+		result.render('index.html.twig', nombreFollowers);
+	});
+
 
 
 });
