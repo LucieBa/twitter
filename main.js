@@ -50,14 +50,7 @@ app.get('/', function(request, result){
 									var listeTweetByUser = val;
 									var j = 0;
 									async.each(listeTweetByUser, function(tweet, callback){
-										if(tweet.length>2){
-											for (var i = 0; i < tweet.length/2; i+2) {
-												tweets[j]=tweet;
-											};
-										}
-												tweets[j]=login;
-												tweets[j]=tweet;
-												j++;
+										//Faire un tableau qui contient tous le tweet
 									});
 
 									console.log(tweets);
@@ -76,6 +69,7 @@ app.get('/', function(request, result){
 
 
 app.post('/publishtweet', function(request, result){
+	//Pas réussi la récupération de la valeur contenu dans le champs texte
 	client.zadd(id+':tweets',new Date().getTime(),"Test");
 });
 
