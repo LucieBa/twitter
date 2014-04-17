@@ -1,18 +1,17 @@
 body{
-	background-image:url(../kindajean_@2X.png);  
+	background-image:url(../knitting250px.png);  
 }
 
 
 #bloc-perso{
 	width:30%;
-	background-color: #e6b2b7;
+	background-color: #cfe2ec;
 	border-radius: 15px;
 	margin-right:50px;
 	padding: 10px;
 }
 
 .bloc-perso-pseudo{
-	/*background-color: #ca6870;*/
 	text-align: center;
 	border-radius: 15px 15px 0px 0px;
 }
@@ -21,19 +20,15 @@ body{
 	text-align: center;
 }
 
-/*.bloc-perso-tweeter{ 
-	padding-top:50px;
-
-}*/
 
 th{
 	margin-top: 0px;
-	background-color: #ca6870;
+	background-color: #3483af;
 	text-align: center;
 }
 
 #bloc-tweet{
-	background-color: #e6b2b7;
+	background-color: white;
 	border-radius: 15px;
 }
 
@@ -42,7 +37,6 @@ th{
 	border:1px solid green;
 	width:50%;
 	margin: 5px;
-	/*padding:10px;*/
 	border-radius: 15px;
 }
 
@@ -55,5 +49,5 @@ table td{
 }
 
 #cinq td{
-	border:1px solid #e6b2b7;
+	border:1px solid #cfe2ec;
 }
