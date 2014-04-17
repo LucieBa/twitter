@@ -2,6 +2,7 @@
 // Variables
 var http = require('http');
 var express = require('express');
+var async = require('async');
 
 var app = express();
 
@@ -18,64 +19,37 @@ app.use(express.static(__dirname));
 
 app.get('/', function(request, result){
 
+
+
 	//On récupère nos Infos
 	client.hgetall(id+':user',function(err,val)
+	{	
+		var info = val;
+		// Je récupère les infos
+		//Nombre de tweets
+		client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
 		{	
-			result.render('index.html.twig', {
-				nom:val.nom,
-				prenom:val.prenom,
-				pseudo:val.login
+			var nombreTweet = val.length;
+			//Nombre de following
+			client.llen(id+':following',function(err,val)
+			{	
+				var nombreFollowing = val;
+				//Nombre de followers
+				client.llen(id+':followers',function(err,val)
+				{	
+					var nombreFollowers = val;
+					result.render('index.html.twig', {
+						nom:info.nom,
+						prenom:info.prenom,
+						login:info.login,
+						nombreTweet:nombreTweet,
+						nombreFollowing:nombreFollowing,
+						nombreFollowers:nombreFollowers
+					});
+				});
 			});
 		});
-
-	//Je récupère mes tweets
-	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
-	{	
-		var time = 1;
-		var message = 0;
-		var myTweet = new Array();
-		var taille = val.length/2;
-
-		for (var i = 0; i < taille; i++) {
-				myTweet[i] = new Array();
-				myTweet[i]["id"] = id;
-				myTweet[i]["message"] = val [message];
-				myTweet[i]["time"] = val[time];
-			time = time + 2 ;
-			message = message + 2;
-		};
-
-		result.render('index.html.twig', myTweet);
 	});
-
-	//Je récupère les tweets des gens que je suis
-	/*client.lrange(id+':following',-1000,+1000,function(err,val)
-	{	
-
-	});*/
-
-	// Je récupère les infos
-	//Nombre de tweets
-	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
-	{	
-		var nombreTweet = val.length;
-		result.render('index.html.twig', nombreTweet);
-	});
-	//Nombre de following
-	client.llen(id+':following',function(err,val)
-	{	
-		var nombreFollowing = val;
-		result.render('index.html.twig', nombreFollowing);
-	});
-	//Nombre de followers
-	client.llen(id+':following',function(err,val)
-	{	
-		var nombreFollowers = val;
-		result.render('index.html.twig', nombreFollowers);
-	});
-
-
-
 });
 
 app.post('/publishtweet', function(request, result){
