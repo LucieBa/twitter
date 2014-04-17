@@ -16,13 +16,13 @@ var id = 1; // Connecté en tant que Marie Noiret
 
 app.use(express.static(__dirname));
 
-app.get('/', function(request, result){
+/*app.get('/', function(request, result){
 
 	//Je récupère mes tweets
 	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
 	{	
 		var time = 1;
-		var message = 0;
+		var message = "";
 		var myTweet = new Array();
 		var taille = val.length/2;
 
@@ -34,7 +34,10 @@ app.get('/', function(request, result){
 			time = time + 2 ;
 			message = message + 2;
 		};
-
+		/*var myTweet = new Array();
+		myTweet[0] = new Array("id"=>1, "message"=> "test", "time" => "123456");
+		myTweet[1] = new Array("id"=>2, "message"=> "prout", "time" => "123456");*/
+		/*myTweet.forEach(console.log(myTweet));*/
 		result.render('index.html.twig', myTweet);
 	});
 
@@ -76,7 +79,7 @@ app.get('/', function(request, result){
 			});
 		});
 
-});
+});*/
 
 app.post('/publishtweet', function(request, result){
 	client.zadd(id+':tweets',new Date().getTime(),"Test");
