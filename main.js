@@ -18,6 +18,16 @@ app.use(express.static(__dirname));
 
 /*app.get('/', function(request, result){
 
+	//On récupère nos Infos
+	client.hgetall(id+':user',function(err,val)
+		{	
+			result.render('index.html.twig', {
+				nom:val.nom,
+				prenom:val.prenom,
+				pseudo:val.login
+			});
+		});
+
 	//Je récupère mes tweets
 	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
 	{	
@@ -42,47 +52,45 @@ app.use(express.static(__dirname));
 	});
 
 	//Je récupère les tweets des gens que je suis
-	client.lrange(id+':following',-1000,+1000,function(err,val)
+	/*client.lrange(id+':following',-1000,+1000,function(err,val)
 	{	
-		var id;
-		for (var i = 0; i < val.length; i++) {
-			var id = val[i];
-				client.ZREVRANGE(id[i]+':tweets',-2,-1,'withscores',function(err,val)
-				{	
-					var time = 1;
-					var message = 0;
-					var tweet = new Array();
-					tweet[id] = new Array();
-					var taille = val.length/2;
 
-					for (var i = 0; i < taille; i++) {
-							tweet[id][i] = new Array();
-							tweet[id][i]["id"] = id;
-							tweet[id][i]["message"] = val [message];
-							tweet[id][i]["time"] = val[time];
-						time = time + 2 ;
-						message = message + 2;
-					};
+	});*/
 
-					result.render('index.html.twig', tweet);
-				});
-		}
+	// Je récupère les infos
+	//Nombre de tweets
+	client.ZREVRANGE(id+':tweets',-2,-1,'withscores',function(err,val)
+	{	
+		var nombreTweet = val.length;
+		result.render('index.html.twig', nombreTweet);
+	});
+	//Nombre de following
+	client.llen(id+':following',function(err,val)
+	{	
+		var nombreFollowing = val;
+		result.render('index.html.twig', nombreFollowing);
+	});
+	//Nombre de followers
+	client.llen(id+':following',function(err,val)
+	{	
+		var nombreFollowers = val;
+		result.render('index.html.twig', nombreFollowers);
 	});
 
 
-	client.hgetall(id+':user',function(err,val)
-		{	
-			result.render('index.html.twig', {
-				nom:val.nom,
-				prenom:val.prenom,
-				pseudo:val.login
-			});
-		});
 
 });*/
 
 app.post('/publishtweet', function(request, result){
 	client.zadd(id+':tweets',new Date().getTime(),"Test");
+});
+
+app.get('/following', function(request, result){
+		result.render('liste.html.twig');
+});
+
+app.get('/followers', function(request, result){
+		result.render('liste.html.twig');
 });
 
 app.listen(8080);
