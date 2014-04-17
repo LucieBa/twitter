@@ -13,38 +13,40 @@
 
     	<div class="container dashboard dashboard-left">
 
-	    	<div id="bloc-perso" class="col-md-4">
-				<div class="bloc-perso-pseudo">{{ login }}</div>
+	    	<table id="bloc-perso" class="col-md-4">
+				<tr>
+					<th class="bloc-perso-pseudo" colspan="3"><h2>{{ login }}</h2></th>
+				</tr>
 
-				<div>
-					<div class="col-md-4">Tweets<br>{{ nombreTweet }}</div>
-					<div class="col-md-4"><a href="/following">Abonnements</a><br>{{nombreFollowers}}</div>
-					<div class="col-md-4"><a href="/followers">Abonnés</a><br>{{nombreFollowing}}</div>
-				</div>
+				<tr id="cinq">
+					<td class="col-md-4">Tweets<br>{{ nombreTweet }}</td>
+					<td class="col-md-4"><a href="/following">Abonnements</a><br>{{nombreFollowers}}</td>
+					<td class="col-md-4"><a href="/followers">Abonnés</a><br>{{nombreFollowing}}</td>
+				</tr>
 
-				<div class="bloc-perso-tweeter">
-					<form method="POST" action="/publishtweet">
+				<tr class="bloc-perso-tweeter">
+					<td colspan="3"><form method="POST" action="/publishtweet">
 						<textarea class="form-control" rows="3" name="prouttweet" id="champTweet" placeholder="Ecrire un nouveau Tweet..."></textarea>
 						<input type="submit" class="btn btn-default" value="Publier" />
-					</form>
-				</div>
-			</div>
+					</form></td>
+				</tr>
+			</table>
 
 
-			<div id="bloc-tweet" class="col-md-7">
-				<h2>Tweets</h2>
-				{#{% for tweet in myTweet %}
-			        <li>{{ tweet.message }}</li>
-			    {% endfor %}#}
-				<ul class="tweet">
-					<li><div><strong>{{ pseudo }}</strong>  |   <small>Il y a {{ timestamp }} secondes</small></div>
-					<div>{{ myTweet.message }}</div></li>
-				</ul>
-				<!--<div class="tweet">
-					<div><strong>{{ pseudo }}</strong>  |   <small>Il y a {{ timestamp }} secondes</small></div>
-					<div>{{ myTweet.message }}</div>
-				</div>-->
-			</div>
+			<table id="bloc-tweet" class="col-md-7">
+				<tr>
+					<th class="bloc-perso-pseudo" colspan="3"><h2>Tweets</h2></th>
+				</tr>
+
+				<tr>
+					<td><strong>{{ pseudo }}</strong>  |   <small>Il y a {{ timestamp }} secondes</small></td><br />
+				</tr>
+
+				<tr class="bloc-perso-tweeter">
+					<td><div>{{ myTweet.message }}</div></td>
+				</tr>
+			</table>
+
     	</div>
     </body>
 </html>
